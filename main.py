@@ -6,38 +6,46 @@ from  creds import *
 
 
 
-header="HTTP/1.1 200 OK\nServer: Pico W\nContent-Type: application/json\n\n"
+HEADER="HTTP/1.1 200 OK\nServer: Pico W\nContent-Type: application/json\n\n"
 
 
 def connect():
-    #Connect to WLAN
+    """
+    Connect to WLAN
+    """
+
     wlan = network.WLAN(network.STA_IF)
     wlan.active(True)
     wlan.connect(ssid, password)
-    
-    for tries in range(10):
-        if wlan.isconnected() == False:
+
+    for _ in range(10):
+        if wlan.isconnected() is False:
             print('Waiting for connection...')
             sleep(1)
-    if wlan.isconnected() == False:
+    if wlan.isconnected() is False:
         print("Failed to connect to WiFi")
         exit(1)
     print(wlan.ifconfig())
-    ip = wlan.ifconfig()[0]
-    print(f'Connected on {ip}')
-    return ip
-   
-def open_socket(ip):
-    # Open a socket
-    address = (ip, 80)
-    connection = socket.socket()
-    connection.bind(address)
-    connection.listen(1)
-    return connection
+    ip_address = wlan.ifconfig()[0]
+    print(f'Connected on {ip_address}')
+    return ip_address
 
-def serve(connection, msg_maker):
+def open_socket(ip_address):
+    """
+    Open a socket
+    """
+    address = (ip_address, 80)
+    socket_connection = socket.socket()
+    socket_connection.bind(address)
+    socket_connection.listen(1)
+    return socket_connection
+
+def serve(socket_connection, msg_maker):
+    """
+    Start serving
+    """
     while True:
-        client = connection.accept()[0]
+        client = socket_connection.accept()[0]
         request = client.recv(1024)
         request = str(request)
         print(request)
@@ -45,13 +53,16 @@ def serve(connection, msg_maker):
         client.close()
 
 def msg_build():
+    """
+    Create response message
+    """
     body = str({"temp": 99})
-    response = header + body
-    
+    response = HEADER + body
+
     print("Response: "+response)
     return response
-    
-    
+
+
 try:
     ip = connect()
     connection = open_socket(ip)
@@ -59,8 +70,4 @@ try:
 
 except KeyboardInterrupt:
     machine.reset()
-
-    
-    
-    
 
