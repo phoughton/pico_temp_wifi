@@ -21,3 +21,9 @@ RUN if [ "${NODE_VERSION}" != "none" ]; then su vscode -c "umask 0002 && . /usr/
 # RUN su vscode -c "source /usr/local/share/nvm/nvm.sh && npm install -g <your-package-here>" 2>&1
 
 RUN echo "alias ll='ls -lrta'" >> /home/vscode/.bashrc
+RUN echo "alias gsetup='git config pull.rebase false'" >> /home/vscode/.bashrc
+RUN echo "alias gs='git status'" >> /home/vscode/.bashrc
+RUN echo "alias ga='git add'" >> /home/vscode/.bashrc
+RUN echo "alias gc='git commit'" >> /home/vscode/.bashrc
+RUN echo "alias gm='git merge'" >> /home/vscode/.bashrc
+RUN echo "alias gp='git push'" >> /home/vscode/.bashrc

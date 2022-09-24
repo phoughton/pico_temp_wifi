@@ -2,15 +2,7 @@
     "python.languageServer": "Pylance",
     "python.linting.enabled": true,
     "python.analysis.autoSearchPath": true,
-    "python.autoComplete.extraPaths": [
-        "src/lib",
-        "a/home/vscode/.local/lib/python3.9/site-package",
-    ],
     "python.linting.pylintEnabled": true,
-    "python.analysis.extraPaths": [
-        "src/lib",
-        "a/home/vscode/.local/lib/python3.9/site-package"
-    ],
     "python.analysis.diagnosticSeverityOverrides": {
         "reportMissingModuleSource": "none"
     }
