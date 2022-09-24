@@ -1,9 +1,8 @@
-import network
-import socket
 from time import sleep
+import socket
+import network
 import machine
-from  creds import *
-
+from  creds import password, ssid
 
 
 HEADER="HTTP/1.1 200 OK\nServer: Pico W\nContent-Type: application/json\n\n"
